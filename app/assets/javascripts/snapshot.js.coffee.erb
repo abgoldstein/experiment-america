@@ -1,0 +1,25 @@
+video = null
+canvas = null
+context = null
+localMediaStream = null
+
+$(document).ready( ->
+  video = $("#video")[0]
+  canvas = $("#canvas")[0]
+  context = canvas.getContext('2d')
+  
+  video.addEventListener('click', snapshot, false)
+  navigator.getUserMedia({video: true}, (stream) ->
+    video.src = window.URL.createObjectURL(stream)
+    localMediaStream = stream
+  null)
+)
+
+snapshot = ->
+  context.drawImage(video, 0, 0)
+	
+  $.post("http://localhost:3000/snapshot/create",
+      img : canvas.toDataURL('image/jpeg')
+  (data) -> 
+    alert('success!')
+  "json")
