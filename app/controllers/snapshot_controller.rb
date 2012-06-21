@@ -1,6 +1,6 @@
 class SnapshotController < ApplicationController
   def new
-    
+
   end
 
   def create
